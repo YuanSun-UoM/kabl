@@ -21,7 +21,6 @@ from math import cos, sin, acos, asin, tan
 from math import degrees as deg, radians as rad
 from datetime import date, datetime, time
 
-
 class Sun:
     """  
  Calculate sunrise and sunset based on equations from NOAA 
@@ -73,12 +72,17 @@ class Sun:
    
   day is a decimal day between 0.0 and 1.0, e.g. noon = 0.5 
   """
-        hours = 24.0 * day
-        h = int(hours)
-        minutes = (hours - h) * 60
-        m = int(minutes)
-        seconds = (minutes - m) * 60
-        s = int(seconds)
+        #hours = 24.0 * day
+        #h = int(hours)
+        #minutes = (hours - h) * 60
+        #m = int(minutes)
+        #seconds = (minutes - m) * 60
+        #s = int(seconds)
+        
+        day = day % 1.0
+        total_seconds = round(day * 86400) % 86400
+        h, remainder = divmod(total_seconds, 3600)
+        m, s = divmod(remainder, 60)
         return time(hour=h, minute=m, second=s)
 
     def __preptime(self, when):
